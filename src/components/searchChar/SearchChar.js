@@ -6,11 +6,11 @@ import {Link} from 'react-router-dom';
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import './searchChar.scss';
-
+import setContent from '../../utils/setContent';
 
 const SearchChar = () => {
     const [char , setChar] = useState(null)
-    const {loading , error , getCharacterByName , clearError} = useMarvelService()
+    const { getCharacterByName , clearError , process } = useMarvelService()
 
 const onCharloaded = (char)=>{
     setChar(char)
@@ -24,7 +24,7 @@ const updateChar = (name)=>{
     getCharacterByName(name)
         .then(onCharloaded)
 }
-const errorMessage = error ? <div className='char__search-critical-error'><ErrorMessage/></div> : null
+const errorMessage = process==='error' ? <div className='char__search-critical-error'><ErrorMessage/></div> : null
 const results = !char ? null : char.length > 0 ?
                     <div className="char__search-wrapper">
                         <div className="char__search-success">There is! Visit {char[0].name} page?</div>
@@ -62,7 +62,7 @@ const results = !char ? null : char.length > 0 ?
                             <button 
                                 type='submit' 
                                 className="button button__main"
-                                disabled={loading}
+                                disabled={process === 'loading'}
                             >
                                 <div className="inner">find</div>
                             </button>

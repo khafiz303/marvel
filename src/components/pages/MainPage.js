@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 
 
@@ -8,6 +8,7 @@ import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import decoration from '../../resources/img/vision.png';
 import SearchChar from '../searchChar/SearchChar'
+import setContent from "../../utils/setContent";
 
 const MainPage = ()=>{
     const [selectedChar , setChar] = useState(null)
@@ -15,6 +16,8 @@ const MainPage = ()=>{
     const onCharSelected =(id)=>{
         setChar(id)
     }
+
+
     return(
         <>  
             <Helmet>
